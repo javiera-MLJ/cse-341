@@ -1,0 +1,275 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Electronics Store API",
+    "description": "Products and Inventory API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8034",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/products": {
+      "get": {
+        "summary": "Get all products",
+        "responses": {
+          "200": {
+            "description": "List of products",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new product",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product created"
+          }
+        }
+      }
+    },
+
+    "/products/{id}": {
+      "get": {
+        "summary": "Get product by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update product by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete product by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product deleted"
+          }
+        }
+      }
+    },
+
+    "/inventory": {
+      "get": {
+        "summary": "Get all inventory items",
+        "responses": {
+          "200": {
+            "description": "List of inventory",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Inventory"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create inventory record",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Inventory created"
+          }
+        }
+      }
+    },
+
+    "/inventory/{id}": {
+      "get": {
+        "summary": "Get inventory by inventory ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inventory found",
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update inventory by inventory ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Inventory updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete inventory by inventory ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Inventory deleted"
+          }
+        }
+      }
+    },
+
+    "/inventory/product/{productId}": {
+      "get": {
+        "summary": "Get inventory by product ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inventory found",
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "required": ["name", "category", "price", "rating"],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "rating": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "Inventory": {
+      "type": "object",
+      "required": ["productId", "stock", "warehouse", "lastUpdated"],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "productId": {
+          "type": "string"
+        },
+        "stock": {
+          "type": "integer"
+        },
+        "warehouse": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
