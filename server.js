@@ -21,6 +21,7 @@ app.use((req, res,next) => {
     next();
 });
 
+app.use('/', require('./routes/index'));
 app.use('/inventory', require('./routes/inventory'));
 app.use('/products', require('./routes/products'));
 
