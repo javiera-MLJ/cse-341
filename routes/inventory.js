@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const productInventory = require('../controllers/inventory');
-const validation = require('../middleware/validate');
+const {isAuthenticated} = require('../middleware/authenticate');
 
 router.get('/', productInventory.getAll);
 
@@ -10,10 +10,10 @@ router.get('/product/:productId', productInventory.getSingleByProduct);
 
 router.get('/:id', productInventory.getSingleByInventory);
 
-router.post('/', validation.saveInventory, productInventory.createStock);
+router.post('/', isAuthenticated, productInventory.createStock);
 
-router.put('/:id',validation.saveInventory, productInventory.updateStock);
+router.put('/:id',isAuthenticated, productInventory.updateStock);
 
-router.delete('/:id', productInventory.deleteStock);
+router.delete('/:id',isAuthenticated, productInventory.deleteStock);
 
 module.exports = router;
